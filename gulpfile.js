@@ -27,9 +27,8 @@ gulp.task('styles', function() {
             'bower_components/bootstrap/dist/css/bootstrap.min.css',
             'bower_components/nouislider/distribute/nouislider.min.css',
             'bower_components/eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css',
-            'app/styles/*.scss',
-            'app/components/**/*.scss',
-
+            'app/common/styles/*.scss',
+            'app/components/**/*.scss'
             ])
         .pipe(sass({ style: 'expanded' }))
         .pipe(rename({suffix: '.min'}))
@@ -40,7 +39,10 @@ gulp.task('styles', function() {
 });
 
 gulp.task('images', function(){
-    return gulp.src('app/components/**/images/*.*')
+    return gulp.src([
+            'app/components/**/images/*.*',
+            'app/common/images/*.*'
+            ])
         .pipe(flatten())
         .pipe(gulp.dest('public/assets/images/'))
         .pipe(notify({ message: 'Images moved' }));
