@@ -1,0 +1,333 @@
+// O pagina HTML va contine un tabel cu 4 linii si 4 coloane. 
+// Celulele tabloului contin numere de la 1 la 15 intr-o ordine aleatoare.
+// Una dintre celule este libera. Folosind JavaScript sa se creeze in cadrul paginii un joc de tip puzzle. 
+// Se va creea o a doua varianta a jocului, in loc de numere celulele tabelului vor contine portiuni ale unei imagini originale 
+// (decupate in portiuni de 4x4). Pentru descompunerea imaginii in subimagini se pot folosi programe de editare grafica 
+// (Photoshop, Gimp, Paint, etc)
+
+doctype html
+html(lang="en")
+	head
+		title Laborator 3
+		meta(charset="utf-8")
+		meta(http-equiv="X-UA-Compatible",content="IE=edge")
+		meta(name="viewport", content="width=device-width, initial-scale=1")
+		meta(name="description", content="")
+		meta(name="author", content="")
+		link(rel="icon", href="favicon.ico")
+		link(href="http://fonts.googleapis.com/css?family=Signika:400,600,300,700", rel="stylesheet", type="text/css")
+
+		// Custom styles for this template
+		link(href="assets/css/main.css", rel="stylesheet", id="main-css")
+		body(style="background-color:gray")
+			block content
+				include ../components/lab4b/joc2.jade
+
+	block javascript
+		script(type="text/javascript").
+			var td = [];
+			for (i = 0; i < 16; i++) { 
+				td[i] = document.getElementsByTagName("td")[i];
+			}
+			var arr = [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15];
+			var sursa =[];
+			sursa[0] = "assets/images/0-0.jpeg";
+			sursa[1] = "assets/images/0-1.jpeg";
+			sursa[2] = "assets/images/0-2.jpeg";
+			sursa[3] = "assets/images/0-3.jpeg";
+			sursa[4] = "assets/images/1-0.jpeg";
+			sursa[5] = "assets/images/1-1.jpeg";
+			sursa[6] = "assets/images/1-2.jpeg";
+			sursa[7] = "assets/images/1-3.jpeg";
+			sursa[8] = "assets/images/2-0.jpeg";
+			sursa[9] = "assets/images/2-1.jpeg";
+			sursa[10] = "assets/images/2-2.jpeg";
+			sursa[11] = "assets/images/2-3.jpeg";
+			sursa[12] = "assets/images/3-0.jpeg";
+			sursa[13] = "assets/images/3-1.jpeg";
+			sursa[14] = "assets/images/3-2.jpeg";
+			sursa[15] = "assets/images/3-3.jpeg";
+			function functionAmesteca() {
+				console.log("Amesteca");
+				shuffle(sursa);
+				shuffle(arr);
+				console.log(arr);
+				console.log(sursa);
+				for (i = 0; i < 16; i++) {
+					if (arr[i] != 0){
+						td[i].innerHTML = arr[i];
+						var td_curent = document.getElementsByTagName("td")[i];
+						var imagine = document.createElement('img');
+						imagine.setAttribute('src', sursa[i]);
+						td_curent.appendChild(imagine);
+						//td[i].style.backgroundColor="green";
+					}else{
+						td[i].innerHTML = null;
+						td[i].style.backgroundColor="white";
+					}
+				}
+			}
+			function switchTd(td_nr, td_empty){
+				var MyTd0 = document.getElementById(td_nr);
+				var MyTd1 = document.getElementById(td_empty);
+				var aux;
+				aux = MyTd1.innerHTML;
+				MyTd1.innerHTML = MyTd0.innerHTML;
+				MyTd0.innerHTML = aux;
+				MyTd0.style.backgroundColor="white";
+				//MyTd1.style.backgroundColor="green";
+			}
+			function function0() {
+				if(td[0].textContent.length != 0){
+					if(td[1].textContent.length == 0){
+						switchTd('0','1');
+					}
+					if(td[4].textContent.length == 0){
+						switchTd('0','4');
+					}
+				}
+			}
+			function function1() {
+				if(td[1].textContent.length != 0){
+					if(td[0].textContent.length == 0){
+						switchTd('1','0');
+					}
+					if(td[2].textContent.length == 0){
+						switchTd('1','2');
+					}
+					if(td[5].textContent.length == 0){
+						switchTd('1','5');
+					}
+				}
+			}
+			function function2() {
+				if(td[2].textContent.length != 0){
+					if(td[1].textContent.length == 0){
+						switchTd('2','1');
+					}
+					if(td[3].textContent.length == 0){
+						switchTd('2','3');
+					}
+					if(td[6].textContent.length == 0){
+						switchTd('2','6');
+					}
+				}
+			}
+			function function3() {
+				if(td[3].textContent.length != 0){
+					if(td[2].textContent.length == 0){
+						switchTd('3','2');
+					}
+					if(td[7].textContent.length == 0){
+						switchTd('3','7');
+					}
+				}
+			}
+			function function4() {
+				if(td[4].textContent.length != 0){
+					if(td[0].textContent.length == 0){
+						switchTd('4','0');
+					}
+					if(td[5].textContent.length == 0){
+						switchTd('4','5');
+					}
+					if(td[8].textContent.length == 0){
+						switchTd('4','8');
+					}
+				}
+			}
+			function function5() {
+				if(td[5].textContent.length != 0){
+					if(td[1].textContent.length == 0){
+						switchTd('5','1');
+					}
+					if(td[4].textContent.length == 0){
+						switchTd('5','4');
+					}
+					if(td[9].textContent.length == 0){
+						switchTd('5','9');
+					}
+					if(td[6].textContent.length == 0){
+						switchTd('5','6');
+					}
+				}
+			}
+			function function6() {
+				if(td[6].textContent.length != 0){
+					if(td[2].textContent.length == 0){
+						switchTd('6','2');
+					}
+					if(td[5].textContent.length == 0){
+						switchTd('6','5');
+					}
+					if(td[10].textContent.length == 0){
+						switchTd('6','10');
+					}
+					if(td[7].textContent.length == 0){
+						switchTd('6','7');
+					}
+				}
+			}
+			function function7() {
+				if(td[7].textContent.length != 0){
+					if(td[3].textContent.length == 0){
+						switchTd('7','3');
+					}
+					if(td[6].textContent.length == 0){
+						switchTd('7','6');
+					}
+					if(td[11].textContent.length == 0){
+						switchTd('7','11');
+					}
+				}
+			}
+			function function8() {
+				if(td[8].textContent.length != 0){
+					if(td[4].textContent.length == 0){
+						switchTd('8','4');
+					}
+					if(td[9].textContent.length == 0){
+						switchTd('8','9');
+					}
+					if(td[12].textContent.length == 0){
+						switchTd('8','12');
+					}
+				}
+			}
+			function function9() {
+				if(td[9].textContent.length != 0){
+					if(td[8].textContent.length == 0){
+						switchTd('9','8');
+					}
+					if(td[13].textContent.length == 0){
+						switchTd('9','13');
+					}
+					if(td[10].textContent.length == 0){
+						switchTd('9','10');
+					}
+					if(td[5].textContent.length == 0){
+						switchTd('9','5');
+					}
+				}
+			}
+			function function10() {
+				if(td[10].textContent.length != 0){
+					if(td[9].textContent.length == 0){
+						switchTd('10','9');
+					}
+					if(td[14].textContent.length == 0){
+						switchTd('10','14');
+					}
+					if(td[11].textContent.length == 0){
+						switchTd('10','11');
+					}
+					if(td[6].textContent.length == 0){
+						switchTd('10','6');
+					}
+				}
+			}
+			function function11() {
+				if(td[11].textContent.length != 0){
+					if(td[7].textContent.length == 0){
+						switchTd('11','7');
+					}
+					if(td[10].textContent.length == 0){
+						switchTd('11','10');
+					}
+					if(td[15].textContent.length == 0){
+						switchTd('11','15');
+					}
+				}
+			}
+			function function12() {
+				if(td[12].textContent.length != 0){
+					if(td[8].textContent.length == 0){
+						switchTd('12','8');
+					}
+					if(td[13].textContent.length == 0){
+						switchTd('12','13');
+					}
+				}
+			}
+			function function13() {
+				if(td[13].textContent.length != 0){
+					if(td[12].textContent.length == 0){
+						switchTd('13','12');
+					}
+					if(td[9].textContent.length == 0){
+						switchTd('13','9');
+					}
+					if(td[14].textContent.length == 0){
+						switchTd('13','14');
+					}
+				}
+			}
+			function function14() {
+				if(td[14].textContent.length != 0){
+					if(td[13].textContent.length == 0){
+						switchTd('14','13');
+					}
+					if(td[10].textContent.length == 0){
+						switchTd('14','10');
+					}
+					if(td[15].textContent.length == 0){
+						switchTd('14','15');
+					}
+				}
+			}
+			function function15() {
+				if(td[15].textContent.length != 0){
+					if(td[11].textContent.length == 0){
+						switchTd('15','11');
+					}
+					if(td[14].textContent.length == 0){
+						switchTd('15','14');
+					}
+				}
+			}
+			function shuffle(array) {
+				var currentIndex = array.length, temporaryValue, randomIndex ;
+
+				// While there remain elements to shuffle...
+				while (0 !== currentIndex) {
+
+					// Pick a remaining element...
+					randomIndex = Math.floor(Math.random() * currentIndex);
+					currentIndex -= 1;
+
+					// And swap it with the current element.
+					temporaryValue = array[currentIndex];
+					array[currentIndex] = array[randomIndex];
+					array[randomIndex] = temporaryValue;
+				}
+
+				return array;
+			}
+			//- function function16() {
+			//- 	if(document.getElementsByTagName("td")[0].textContent.length == 0){
+			//-			console.log("faceva");
+			//- 	}
+			//- 	var d = new Date();
+			//- 	var n = d.getTime();
+			//- 	console.log(n);
+			//- }
+			// function function9() {
+			// 	var element =  document.getElementsByTagName("img")[0];
+			// 	if (typeof(element) != 'undefined' && element != null)
+			// 	{
+			// 		// exists.
+			// 		console.log("Aici e imaginea");
+			// 	}else{
+			// 		console.log("Aici nu e imaginea");
+			// 	}
+			// }
+			// function function0() {
+			// 	if(document.getElementsByTagName("td")[0].textContent.length != 0){
+			// 		if(document.getElementsByTagName("td")[1].textContent.length == 0){
+			// 			switchTd('0','1');
+			// 		}
+			// 		if(document.getElementsByTagName("td")[4].textContent.length == 0){
+			// 			switchTd('0','4');
+			// 		}
+			// 	}
+			// }
