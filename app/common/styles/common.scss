@@ -1,0 +1,96 @@
+/* Sa se descrie folosind cod HTML structura unui site conform acestui exemplu. Site-ul va fi stilizat folosind CSS. Cerinte:
+Header-ul va avea o inaltime fixa de 100 de pixeli;
+Meniul va fi redat printr-o lista, latimea meniului fiind de 150 de pixeli;
+Fiecare element din cadrului meniului va avea o inaltime fixa de 25 de pixeli;
+Footer-ul va avea o inaltime fixa de 60 de pixeli;
+Div-ul principal (de culoare verde, avand continutul Main View in exemplu) va ocupa toata latimea ferestrei 
+(minus latimea meniului din dreapta) si toata inaltimea disponibila a acesteia 
+(dupa ce se scade inaltimea header-ului si a footer-ului). 
+Daca este cazul, acest div poate avea o inaltime care sa se adapteze la continut, 
+mai mare ca inaltimea ferestrei browserului, caz in care browserul va afisa bara de scroll verticala din partea dreapta. 
+Inaltimea div-ului principal poate fi dictata si de inaltimea meniului daca acesta contine un numar ridicat de elemente 
+(sitatie care poate conduce si ea la afisare scroll barului vertical al browseru-lui). 
+Daca div-ul princial are continut minim, div-ul ce reprezinta footer-ul se va regasi intotdeauna in partea de jos a ferestrei. 
+Geometria site-ului se va pastra la redimensionarea ferestrei browser-ului.
+ PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd" 
+
+		<meta http-equiv="Content-Type" content="text/html;charset=ISO-8859-1">*/
+
+.body1{
+	background-color:green;
+	&, p{
+		margin:0;
+		padding:0;
+	}
+}
+
+.header{
+	background-color: red;
+	position: fixed;
+	height: 100px;
+	width: 100%;
+	& > p{
+		padding-top: 45px;
+	}
+}
+
+.meniu{
+	float:left;
+	background-color: yellow;
+	height: 100%;
+	width: 150px;
+	top:100px;
+	//padding-bottom:60px;
+	position:fixed;
+	&>ol{
+		margin:0;
+		padding: 0;
+		list-style-type: none;
+		//padding-bottom:60px;
+		//width: 150px;
+		//height:100%;
+		&> li {
+			border-bottom: 1px solid black;
+			height: 25px;
+			&> p{
+				//height: 25px;
+				padding-left: 10px;
+			}
+		}
+	}
+}
+
+.main{
+	background-color: green;
+	height:100%;
+	padding-top:110px;
+	padding-left:10px;
+	padding-bottom:60px;
+	//position:relative;
+	&>h1{
+		height:100%;
+		margin:0;
+		padding-left:150px;
+	}
+}
+
+.footer{
+	background-color: pink;
+	position:fixed;
+	bottom:0;
+	width:100%;
+	height:60px; 
+	& p {
+		padding-top:25px;
+	}
+}
+
+.box{    
+	background-image: url("/assets/images/hints.png");
+	background-color: #c0cdcc;
+	border: 1px solid black;
+	border-radius: 10px;
+	padding: 10px 10px 10px 100px;
+	width:800px;
+	height:120px;
+}
