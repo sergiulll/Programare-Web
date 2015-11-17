@@ -1,0 +1,17 @@
+{
+  "name": "Web_SmartMirror",
+  "version": "1.0.0",
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap": "~3.3.5",
+    "eonasdan-bootstrap-datetimepicker": "~4.15.35",
+    "jquery.pep": "~0.6.3"
+  }
+}
