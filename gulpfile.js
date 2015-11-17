@@ -103,7 +103,7 @@ gulp.task('default',['clean'], function(){
 gulp.task('watch', function() {
 
 // Watch .scss files
-    gulp.watch('app/components/**/*.scss', ['styles', 'compile_templates']);
+    gulp.watch('app/components/**/**/*.scss', ['styles', 'compile_templates']);
     gulp.watch('app/components/**/*.js', ['scripts', 'compile_templates']);
     gulp.watch('app/dependencies/*.js',['scripts']);
 	gulp.watch(['app/_include/scss/*.scss','app/styles/*.scss'],['styles']);

@@ -1,0 +1,86 @@
+block content
+	h1 Hello
+	table(class="tabela_sortare" style="margin:20px;")
+		tr
+			th(class="th_sortare th_cifre") cifre
+			th(class="th_sortare th_animale") animale
+			th(class="th_sortare th_fructe") fructe
+			th(class="th_sortare th_text") text
+		tr
+			td(class="td_sortare td_cifre") 11
+			td(class="td_sortare td_animale") unicorn
+			td(class="td_sortare td_fructe") mar
+			td(class="td_sortare td_text") ciresel cel infometat
+		tr
+			td(class="td_sortare td_cifre") 7
+			td(class="td_sortare td_animale") cal
+			td(class="td_sortare td_fructe") grepfruit
+			td(class="td_sortare td_text") cate mere a imprumutat
+		tr
+			td(class="td_sortare td_cifre") 55
+			td(class="td_sortare td_animale") ornitorinca
+			td(class="td_sortare td_fructe") portocala
+			td(class="td_sortare td_text") ciresel vine si cere
+		tr
+			td(class="td_sortare td_cifre") 1
+			td(class="td_sortare td_animale") iepure
+			td(class="td_sortare td_fructe") ananas
+			td(class="td_sortare td_text") ana are mere
+block javascript
+	script(type="text/javascript").
+		$(document).ready(function(){
+			var cifre_order=true;
+			var animals_order=true;
+			var fructe_order=true;
+			var text_order=true;
+			function sortare(cl_th,ls_order){
+				var myArray=[];
+				$(cl_th).each(function(i, obj) {
+					myArray[i] = $(this).text();
+				});
+				if(ls_order){
+					myArray.sort();
+				}else{
+					myArray.reverse();
+				}
+				console.log(myArray);
+				$(cl_th).each(function(i, obj) {
+					$(this).text(myArray[i]);
+				});
+			}
+			function sortareNumere(cl_th,ls_order){
+				var myArr=[];
+				$(cl_th).each(function(i, obj) {
+					myArr[i] = $(this).text();
+				});
+				if(ls_order){
+					myArr.sort(function(a,b){return a - b});
+				}else{
+					myArr.sort(function(a,b){return b - a});
+				}
+				console.log(myArr);
+				$(cl_th).each(function(i, obj) {
+					$(this).text(myArr[i]);
+				});
+			}
+			$(".th_cifre").on("click",function(){
+				console.log("sorting td_cifre...");
+				sortareNumere(".td_cifre",cifre_order);
+				cifre_order=!cifre_order;
+			});
+			$(".th_animale").on("click",function(){
+				console.log("sorting td_animale...");
+				sortare(".td_animale",animals_order);
+				animals_order=!animals_order;
+			});
+			$(".th_fructe").on("click",function(){
+				console.log("sorting td_fructe...");
+				sortare(".td_fructe",fructe_order);
+				fructe_order=!fructe_order;
+			});
+			$(".th_text").on("click",function(){
+				console.log("sorting td_text...");
+				sortare(".td_text",text_order);
+				text_order=!text_order;
+			});
+		});
