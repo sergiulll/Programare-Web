@@ -1,86 +1,122 @@
 block content
-	h1 Hello
+	h3(style="margin:20px;")
+		| Sa se sorteze un tabel crescator sau descrescator
+		| in functie de valoare elementelor de pe o anumita coloana.
+		| La un click pe antetul coloanei, tabelul va fi sortat crescator,
+		| la urmatorul click descrescator, etc.
+		| Tabelul va putea fi sortat dupa orice coloana.
+		| Nu se vor folosi alte biblioteci de functii, 
+		| pluginuri, etc in afara de jQuery (jquery.min.js).
 	table(class="tabela_sortare" style="margin:20px;")
 		tr
-			th(class="th_sortare th_cifre") cifre
-			th(class="th_sortare th_animale") animale
-			th(class="th_sortare th_fructe") fructe
-			th(class="th_sortare th_text") text
+			th(class="th_nume") Nume
+			th(class="th_prenume") Prenume
+			th(class="th_varsta") Varsta
+			th(class="th_email") E-mail
 		tr
-			td(class="td_sortare td_cifre") 11
-			td(class="td_sortare td_animale") unicorn
-			td(class="td_sortare td_fructe") mar
-			td(class="td_sortare td_text") ciresel cel infometat
+			td(class="row0 td_nume") Pop
+			td(class="row0 td_prenume") George
+			td(class="row0 td_varsta") 21
+			td(class="row0 td_email") george@example.com
 		tr
-			td(class="td_sortare td_cifre") 7
-			td(class="td_sortare td_animale") cal
-			td(class="td_sortare td_fructe") grepfruit
-			td(class="td_sortare td_text") cate mere a imprumutat
+			td(class="row1 td_nume") Popescu
+			td(class="row1 td_prenume") Vasile
+			td(class="row1 td_varsta") 17
+			td(class="row1 td_email") popescu@example.com
 		tr
-			td(class="td_sortare td_cifre") 55
-			td(class="td_sortare td_animale") ornitorinca
-			td(class="td_sortare td_fructe") portocala
-			td(class="td_sortare td_text") ciresel vine si cere
+			td(class="row2 td_nume") Doru
+			td(class="row2 td_prenume") Octavian
+			td(class="row2 td_varsta") 55
+			td(class="row2 td_email") doru@example.com
 		tr
-			td(class="td_sortare td_cifre") 1
-			td(class="td_sortare td_animale") iepure
-			td(class="td_sortare td_fructe") ananas
-			td(class="td_sortare td_text") ana are mere
+			td(class="row3 td_nume") Nicuale
+			td(class="row3 td_prenume") Daniel
+			td(class="row3 td_varsta") 19
+			td(class="row3 td_email") dani@example.com
+		tr
+			td(class="row4 td_nume") Ionescu
+			td(class="row4 td_prenume") Radu
+			td(class="row4 td_varsta") 22
+			td(class="row4 td_email") radu@example.com
 block javascript
 	script(type="text/javascript").
 		$(document).ready(function(){
-			var cifre_order=true;
-			var animals_order=true;
-			var fructe_order=true;
-			var text_order=true;
+			var varsta_order=false;
+			var nume_order=false;
+			var prenume_order=false;
+			var mail_order=false;
 			function sortare(cl_th,ls_order){
-				var myArray=[];
+				var myArray =[];
+				var row = [];
+				var tabel_final = [];
+				var k = 0;
 				$(cl_th).each(function(i, obj) {
 					myArray[i] = $(this).text();
 				});
-				if(ls_order){
+				//construim fiecare linie si o punem intr-un row
+				for(var i = 0; i < myArray.length; i++) {
+					row[i] = $(".row"+i);
+				}
+				//sortare numerica sau alfabetica
+				// if(cl_th == ".td_varsta"){
+				// 	!ls_order == true ? myArray.sort(function(a,b){return a - b}) : myArray.sort(function(a,b){return b - a});
+				// }else{
+				// 	!ls_order == true ? myArray.sort() : myArray.reverse();
+				// }				
+				if(!ls_order){
 					myArray.sort();
 				}else{
 					myArray.reverse();
 				}
-				console.log(myArray);
-				$(cl_th).each(function(i, obj) {
-					$(this).text(myArray[i]);
-				});
-			}
-			function sortareNumere(cl_th,ls_order){
-				var myArr=[];
-				$(cl_th).each(function(i, obj) {
-					myArr[i] = $(this).text();
-				});
-				if(ls_order){
-					myArr.sort(function(a,b){return a - b});
-				}else{
-					myArr.sort(function(a,b){return b - a});
+				for(var i = 0; i < myArray.length; i++){
+					for (var j = 0; j < row.length; j++){
+						// verificam si punem in matricea tabel_final
+						// row-ul care se potriveste cu ordinea array-ului sortat
+						if(myArray[i] == $(".row"+j+cl_th).text() ){
+							tabel_final[k]=[];
+							tabel_final[k].push($(".row"+j+".td_nume").text(),
+										$(".row"+j+".td_prenume").text(),
+										$(".row"+j+".td_varsta").text(),
+										$(".row"+j+".td_email").text()
+									);
+							k++;
+						}
+					}
 				}
-				console.log(myArr);
-				$(cl_th).each(function(i, obj) {
-					$(this).text(myArr[i]);
-				});
+				//reconstruim tabelul in ordinea pusa in tabel_final
+				for(var i = 0; i < tabel_final.length; i++) {
+					$(".row"+i+".td_nume").text(tabel_final[i][0]);
+					$(".row"+i+".td_prenume").text(tabel_final[i][1]);
+					$(".row"+i+".td_varsta").text(tabel_final[i][2]);
+					$(".row"+i+".td_email").text(tabel_final[i][3]);
+				}
 			}
-			$(".th_cifre").on("click",function(){
-				console.log("sorting td_cifre...");
-				sortareNumere(".td_cifre",cifre_order);
-				cifre_order=!cifre_order;
+			$(".th_varsta").on("click",function(){
+				sortare(".td_varsta",varsta_order);
+				varsta_order=!varsta_order;
+				nume_order=false;
+				prenume_order=false;
+				mail_order=false;
 			});
-			$(".th_animale").on("click",function(){
-				console.log("sorting td_animale...");
-				sortare(".td_animale",animals_order);
-				animals_order=!animals_order;
+			$(".th_nume").on("click",function(){
+				sortare(".td_nume",nume_order);
+				varsta_order=false;
+				nume_order=!nume_order;
+				prenume_order=false;
+				mail_order=false;
 			});
-			$(".th_fructe").on("click",function(){
-				console.log("sorting td_fructe...");
-				sortare(".td_fructe",fructe_order);
-				fructe_order=!fructe_order;
+			$(".th_prenume").on("click",function(){
+				sortare(".td_prenume",prenume_order);
+				varsta_order=false;
+				nume_order=false;
+				prenume_order=!prenume_order;
+				mail_order=false;
 			});
-			$(".th_text").on("click",function(){
-				console.log("sorting td_text...");
-				sortare(".td_text",text_order);
-				text_order=!text_order;
+			$(".th_email").on("click",function(){
+				sortare(".td_email",mail_order);
+				varsta_order=false;
+				nume_order=false;
+				prenume_order=false;
+				mail_order=!mail_order;
 			});
 		});

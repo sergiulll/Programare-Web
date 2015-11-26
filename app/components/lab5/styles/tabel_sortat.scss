@@ -1,4 +1,7 @@
-.td_sortare{
+.td_nume,
+.td_prenume,
+.td_varsta,
+.td_email{
 	background-color:white;
 	height: 80px;
 	width: 250px;
@@ -8,7 +11,10 @@
 	font-size: 20px;
 }
 
-.th_sortare{
+.th_nume,
+.th_prenume,
+.th_varsta,
+.th_email{
 	background-color:pink;
 	height: 100px;
 	width: 250px;
